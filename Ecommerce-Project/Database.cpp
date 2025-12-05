@@ -53,7 +53,7 @@ static std::string sanitize(const std::string& s) {
 }
 
 void Database::SaveUsers() {
-    const fs::path root = "C:/Users/Cesar/source/repos/Ecommerce-Project/Users";
+    const fs::path root = "Users";
     fs::create_directories(root);
 
     for (const auto& uptr : allUsers) {
@@ -115,7 +115,7 @@ void Database::SaveUsers() {
 }
 
 void Database::SaveProducts() {
-    const std::string productPath = "C:/Users/Cesar/source/repos/Ecommerce-Project/products.txt";
+    const std::string productPath = "products.txt";
     std::ofstream out(productPath);
     if (!out) {
         std::cerr << "Error opening product file for writing: " << productPath << "\n";
@@ -193,7 +193,7 @@ void Database::DeleteUserFromDatabase(const User& u) {
         return;
     }
 
-    const fs::path root = "C:/Users/Cesar/source/repos/Ecommerce-Project/Users";
+    const fs::path root = "Users";
     fs::path userDir = root / userNameSanitized;
     std::error_code ec;
     fs::remove_all(userDir, ec);  
@@ -210,7 +210,7 @@ void Database::loadUsers() {
     int maxID = 0;
     int maxIDo = 0;
     allUsers.clear();
-    const fs::path root = "C:/Users/Cesar/source/repos/Ecommerce-Project/Users";
+    const fs::path root = "Users";
     if (!fs::exists(root)) return;
 
     for (const auto& dirEntry : fs::directory_iterator(root)) {
@@ -325,7 +325,7 @@ void Database::loadUsers() {
 void Database::loadProducts() {
     int maxID = 0;
 
-    const std::string productPath = "C:/Users/Cesar/source/repos/Ecommerce-Project/products.txt";
+    const std::string productPath = "products.txt";
     std::ifstream in(productPath);
     if (!in) {
         std::cerr << "No products file found at " << productPath << " (first run?).\n";
