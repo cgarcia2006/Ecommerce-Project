@@ -1,0 +1,8 @@
+
+CesarID: 1ORDERS: 
+
+elpaID: 2ORDERS: 
+Order ID: ORD1
+0, Toy, 10, 1
+Total price: 10
+
