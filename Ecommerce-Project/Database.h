@@ -15,10 +15,9 @@ public:
     static std::vector<std::unique_ptr<User>> allUsers;
     static std::vector<std::shared_ptr<Product>> allProducts;  
     static std::vector<std::unique_ptr<Order>> allOrders;
-
     static void SaveUsers();
     static void SaveProducts();
-    static void SaveOrders();
+
     static void loadUsers();
     static void loadProducts();
 

@@ -397,7 +397,6 @@ void Store::DisplayStoreOptionPhaseTwo(int choice, User* user, const std::string
         {
             Database::SaveUsers();
             Database::SaveProducts();
-            Database::SaveOrders();
             loop = false;
             Logout(user);
             break;

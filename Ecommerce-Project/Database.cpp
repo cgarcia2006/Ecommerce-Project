@@ -12,7 +12,7 @@ namespace fs = std::filesystem;
 #include <string>
 #include <algorithm>
 #include <limits>
-#include <sstream>   // for std::istringstream in split()
+#include <sstream>   
 #include <cctype>
 
 
@@ -73,7 +73,7 @@ void Database::SaveUsers() {
             << '|' << u.getPassword() << '|' << (u.getIsAdmin() ? 1 : 0) << "\n";
 
         // CART
-        // Count only valid products
+   
         std::vector<const CartItem*> validCartItems;
         for (const auto& item : u.cart.products) {
             if (auto p = item.product.lock()) {
@@ -92,7 +92,6 @@ void Database::SaveUsers() {
 
         // ORDERS
         for (const auto& ord : u.orderHistory) {
-            // Only count items whose product still exists
             std::vector<const CartItem*> validItems;
             for (const auto& item : ord.products) {
                 if (auto p = item.product.lock()) {
@@ -169,7 +168,6 @@ void Database::RemoveProductFromDatabase(const Product& product) {
         return;
     }
 
-    // Rewrite file with updated list
     SaveProducts();
     std::cout << "Products file updated.\n";
 }
@@ -180,7 +178,6 @@ void Database::DeleteUserFromDatabase(const User& u) {
     auto userNameSanitized = sanitize(u.getName());
     bool deleted = false;
 
-    // 1) Remove from vector
     for (size_t i = 0; i < allUsers.size(); ++i) {
         if (allUsers[i]->getUserID() == target) {
             std::cout << "Removing user \"" << allUsers[i]->getName()
@@ -196,11 +193,10 @@ void Database::DeleteUserFromDatabase(const User& u) {
         return;
     }
 
-    // 2) Remove their folder on disk (Users/<sanitized_name>)
     const fs::path root = "C:/Users/Cesar/source/repos/Ecommerce-Project/Users";
     fs::path userDir = root / userNameSanitized;
     std::error_code ec;
-    fs::remove_all(userDir, ec);   // don't throw on error
+    fs::remove_all(userDir, ec);  
     if (ec) {
         std::cerr << "Warning: failed to remove user directory "
             << userDir.string() << ": " << ec.message() << "\n";
@@ -287,7 +283,7 @@ void Database::loadUsers() {
 
         while (std::getline(in, line)) {
             if (line.rfind("ORDER|", 0) != 0)
-                break; // no more orders
+                break; 
 
             auto head = split(line);
             if (head.size() != 3) break;
@@ -295,7 +291,6 @@ void Database::loadUsers() {
             std::string orderID = head[1];
             int k = std::stoi(head[2]);
 
-            // Read k items
             std::vector<CartItem> prods;
             prods.reserve(k);
 

@@ -130,7 +130,6 @@ void ShoppingCart::BuyCart(User& user) {
     Database::allOrders.push_back(std::move(orderPtr)); // unique record in DB
 
     products.clear();
-    Database::SaveOrders();
     Database::SaveProducts();
 }
 
