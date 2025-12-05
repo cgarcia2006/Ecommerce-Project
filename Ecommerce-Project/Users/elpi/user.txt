@@ -1,3 +1,0 @@
-INFO
-1|elpi|elpi|elpi|1
-CART|0
